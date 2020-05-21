@@ -74,7 +74,9 @@ void jump_to_user() {
   
   if (check_for_payload()) {
     // Bring down the USB link
+  #ifndef RFCAT_PCDONGLE
     usb_down();
+  #endif
   
     // Flag bootloader not running
     bootloader_running = 0;
@@ -216,6 +218,10 @@ void bootloader_main ()
   if (CC1111YSONE_PIN_DC != GROUNDED && !want_bootloader())
   #endif
 
+    #ifdef RFCAT_PCDONGLE
+  if (CC1111PCDONGLE_PIN_DC != GROUNDED && !want_bootloader())
+  #endif
+
 #else
   if (!want_bootloader())
 #endif
@@ -240,7 +246,10 @@ void bootloader_main ()
   EA = 1;
   
   // Bring up the USB link
+#ifndef RFCAT_PCDONGLE
   usb_up();
+#endif
+
   led_on();
  
   while (1) 

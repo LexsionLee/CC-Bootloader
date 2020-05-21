@@ -49,14 +49,28 @@
   #define AMP_BYPASS_EN		P2_3
 #endif
 
+#ifdef RFCAT_PCDONGLE
+  #define LED0			P1_0
+  #define LED1 			P1_1
+  #define LED_MASK		0x03
+  //#define USB_ENABLE		P1_0
+  //#define USB_MASK		0x01
+  #define CC1111PCDONGLE_PIN_DC	P2_2
+ // #define TX_AMP_EN		P2_0
+  //#define RX_AMP_EN		P2_4
+  //#define AMP_BYPASS_EN		P2_3
+#endif
+
 void setup_led();
 void led_on();
 void led_off();
 void setup_button();
 void setup_gpio();
 
+#ifndef RFCAT_PCDONGLE
 void usb_up();
 void usb_down();
+#endif
 
 #define BUTTON_PRESSED  	0
 #define GROUNDED		0

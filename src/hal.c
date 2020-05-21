@@ -36,6 +36,10 @@ void setup_button() {
 #ifdef RFCAT_YARDSTICKONE
   P2DIR &= ~4;
 #endif
+#ifdef RFCAT_PCDONGLE
+  P2DIR &= ~4;
+#endif
+//Same that code NOT RUN except DONSDONGLE?,In fact,Other board use P2_2 for a button to Bootloader.
 }
 
 // any other gpio pins
@@ -58,6 +62,10 @@ void led_on() {
   LED1 = 1;
   LED2 = 1;
   LED3 = 1;
+#endif
+#ifdef RFCAT_PCDONGLE
+  LED0 = 1;
+  LED1 = 1;
 #else
   LED = 1;
 #endif
@@ -68,6 +76,10 @@ void led_off() {
   LED1 = 0;
   LED2 = 0;
   LED3 = 0;
+#endif
+#ifdef RFCAT_PCDONGLE
+  LED0 = 0;
+  LED1 = 0;
 #else
   LED = 0;
 #endif
@@ -75,12 +87,16 @@ void led_off() {
 
 void usb_up() {
   // Bring up the USB link
+#ifndef RFCAT_PCDONGLE
   P1DIR |= USB_MASK;
   USB_ENABLE = 1;
+#endif
 }
 
 void usb_down() {
   // Bring down the USB link
+#ifndef RFCAT_PCDONGLE
   USB_ENABLE = 0;
   P1DIR &= ~USB_MASK;
+#endif
 }
